@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公考刷题库</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>📚 公考刷题库</h1>
+  <p class="subtitle">国考 · 省考 · 事业编 | 行测 · 申论 · 公共基础知识</p>
+</header>
+
+<!-- 首页：分类 -->
+<section id="home" class="page active">
+  <div class="stats-bar" id="globalStats"></div>
+  <div class="card-grid" id="categoryGrid"></div>
+</section>
+
+<!-- 年份/科目选择 -->
+<section id="picker" class="page">
+  <button class="back-btn" onclick="go('home')">← 返回首页</button>
+  <h2 id="pickerTitle"></h2>
+  <div id="yearList"></div>
+</section>
+
+<!-- 刷题页 -->
+<section id="quiz" class="page">
+  <div class="quiz-top">
+    <button class="back-btn" onclick="go('picker')">← 返回</button>
+    <span id="quizMeta"></span>
+  </div>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionBox"></div>
+  <div class="quiz-actions">
+    <button id="prevBtn" onclick="nav(-1)">上一题</button>
+    <button id="analysisBtn" onclick="toggleAnalysis()">查看解析</button>
+    <button id="nextBtn" onclick="nav(1)">下一题</button>
+  </div>
+  <div id="analysisBox" class="analysis hidden"></div>
+</section>
+
+<!-- 结果页 -->
+<section id="result" class="page">
+  <h2>本次成绩</h2>
+  <div id="resultBox"></div>
+  <button class="primary" onclick="go('home')">回到首页</button>
+</section>
+
+<script src="data.js"></script>
+<script src="data-extra.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
