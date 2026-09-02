@@ -80,4 +80,19 @@ header h1 { font-size:24px; }
 #resultBox { background:#fff; border-radius:12px; padding:24px; text-align:center;
   margin:16px 0; box-shadow:0 1px 4px rgba(0,0,0,.06); }
 #resultBox .score { font-size:40px; font-weight:bold; color:#2563eb; }
-.primary { width:100%; }
+.primary { width:100%; margin-top:10px; }
+.primary.ghost { background:#64748b; }
+
+/* 科目页签 + 随机抽题 */
+.mode-bar { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+.subj-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+.subj-tab { border:1px solid #cbd5e1; background:#fff; color:#475569; border-radius:18px;
+  padding:6px 14px; font-size:13px; cursor:pointer; }
+.subj-tab.on { background:#1e3a8a; border-color:#1e3a8a; color:#fff; }
+.random-btn { border:none; background:#0ea5e9; color:#fff; border-radius:18px; padding:8px 16px;
+  font-size:13px; cursor:pointer; }
+.search { width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:10px 14px;
+  font-size:14px; margin-bottom:12px; background:#fff; }
+.start-btn { border:none; background:#2563eb; color:#fff; border-radius:8px; padding:9px 18px;
+  font-size:14px; cursor:pointer; }
+.loading { text-align:center; color:#94a3b8; padding:30px 0; }
