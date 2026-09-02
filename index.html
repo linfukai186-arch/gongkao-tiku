@@ -9,7 +9,7 @@
 <body>
 <header>
   <h1>📚 公考刷题库</h1>
-  <p class="subtitle">国考 · 省考 · 事业编 | 行测 · 申论 · 公共基础知识</p>
+  <p class="subtitle">国考 · 省考 · 事业编 | 行测 · 申论 · 公基 · 综应</p>
 </header>
 
 <!-- 首页：分类 -->
@@ -18,10 +18,15 @@
   <div class="card-grid" id="categoryGrid"></div>
 </section>
 
-<!-- 年份/科目选择 -->
+<!-- 年份选择（含搜索 + 抽题入口） -->
 <section id="picker" class="page">
   <button class="back-btn" onclick="go('home')">← 返回首页</button>
   <h2 id="pickerTitle"></h2>
+  <div class="mode-bar">
+    <div id="subjTabs" class="subj-tabs"></div>
+    <button class="random-btn" id="randomBtn" onclick="startRandom()">🎲 随机抽题</button>
+  </div>
+  <input id="searchInput" class="search" placeholder="搜索年份 / 省份，如 2024 四川" oninput="renderYearList()">
   <div id="yearList"></div>
 </section>
 
@@ -46,10 +51,12 @@
   <h2>本次成绩</h2>
   <div id="resultBox"></div>
   <button class="primary" onclick="go('home')">回到首页</button>
+  <button class="primary ghost" onclick="go('picker')">再刷一组</button>
 </section>
 
 <script src="data.js"></script>
 <script src="data-extra.js"></script>
+<script src="bank.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
