@@ -95,6 +95,32 @@ header h1 { font-size:24px; }
   padding:12px; font-size:15px; cursor:pointer; }
 .lock-err { color:#dc2626 !important; margin:8px 0 0 !important; min-height:1em; }
 
+.section-title { font-size:16px; margin:18px 0 10px; }
+.home-actions { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:14px 0; }
+.home-action { border:1px solid #dbeafe; background:#eff6ff; color:#1d4ed8; border-radius:8px; padding:10px 6px; font-size:13px; cursor:pointer; }
+.home-action span { display:inline-block; min-width:18px; font-weight:700; }
+.intro { color:#64748b; font-size:13px; line-height:1.6; margin:6px 0 14px; }
+.course-panel { background:#fff; border-radius:12px; padding:14px; margin:12px 0 18px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+.course-head, .practice-head { display:flex; justify-content:space-between; align-items:center; }
+.course-head strong { color:#1e3a8a; font-size:14px; }
+.link-btn { border:0; background:transparent; color:#2563eb; font-size:12px; cursor:pointer; }
+.course-list { display:grid; gap:8px; margin-top:10px; }
+.course-item { display:flex; align-items:center; gap:10px; border:1px solid #e2e8f0; border-radius:8px; padding:10px; cursor:pointer; }
+.course-item:hover { border-color:#93c5fd; background:#f8fbff; }
+.lesson-num { display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#dbeafe; color:#1d4ed8; font-size:12px; }
+.course-item b { display:block; font-size:13px; }
+.course-item small { display:block; color:#94a3b8; font-size:11px; margin-top:3px; }
+.lesson-go { margin-left:auto; color:#2563eb; font-size:12px; }
+.practice-head { margin:8px 0; }
+.practice-head h3 { font-size:15px; color:#334155; }
+.practice-head span { color:#94a3b8; font-size:12px; }
+.notice-box { margin-top:18px; padding:12px; border-radius:8px; background:#fffbeb; color:#92400e; font-size:12px; line-height:1.6; }
+.learning-item { background:#fff; border-radius:10px; padding:13px; margin:9px 0; box-shadow:0 1px 4px rgba(0,0,0,.06); cursor:pointer; }
+.learning-item b { display:block; font-size:14px; line-height:1.5; }
+.learning-item small { display:block; color:#64748b; margin-top:5px; }
+.subjective-tip { color:#64748b; font-size:13px; line-height:1.6; padding:10px 0; }
+@media(max-width:520px){ .home-actions { grid-template-columns:1fr 1fr 1fr; } .home-action { font-size:12px; } }
+
 /* 科目页签 + 随机抽题 */
 .mode-bar { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
 .subj-tabs { display:flex; gap:6px; flex-wrap:wrap; }
