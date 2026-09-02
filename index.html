@@ -1,3 +1,4 @@
+<!-- overwrite marker -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -9,58 +10,67 @@
 <body>
 <header>
   <h1>📚 公考刷题库</h1>
-  <p class="subtitle">国考 · 省考 · 事业编 | 行测 · 申论 · 公基 · 综应</p>
+  <p class="subtitle">课程 · 真题 · 专项练习 · 错题 · 模考</p>
 </header>
 
-<!-- 密码门禁 -->
 <div id="lock" class="lock-screen">
   <div class="lock-card">
-    <h2>🔒 公考刷题库</h2>
-    <p>请输入访问密码</p>
+    <h2>🔒 公考刷题库</h2><p>请输入访问密码</p>
     <input type="password" id="lockInput" placeholder="密码" onkeydown="if(event.key==='Enter')unlock()">
-    <button onclick="unlock()">进入</button>
-    <p id="lockErr" class="lock-err"></p>
+    <button onclick="unlock()">进入</button><p id="lockErr" class="lock-err"></p>
   </div>
 </div>
 
-<!-- 首页：分类 -->
 <section id="home" class="page active">
   <div class="stats-bar" id="globalStats"></div>
+  <div class="home-actions">
+    <button class="home-action" onclick="openLearning('mistakes')">📕 错题本 <span id="mistakeCount">0</span></button>
+    <button class="home-action" onclick="openLearning('favorites')">⭐ 收藏题 <span id="favoriteCount">0</span></button>
+    <button class="home-action" onclick="openLearning('history')">🕘 学习记录</button>
+  </div>
+  <h2 class="section-title">选择考试类别</h2>
   <div class="card-grid" id="categoryGrid"></div>
+  <div class="notice-box">题库标识：公开真题 / 公开资料整理 / 原创练习。原创练习会经过答案与解析校验后再进入正式题库。</div>
 </section>
 
-<!-- 年份选择（含搜索 + 抽题入口） -->
 <section id="picker" class="page">
   <button class="back-btn" onclick="go('home')">← 返回首页</button>
   <h2 id="pickerTitle"></h2>
+  <p id="pickerIntro" class="intro"></p>
   <div class="mode-bar">
     <div id="subjTabs" class="subj-tabs"></div>
     <button class="random-btn" id="randomBtn" onclick="startRandom()">🎲 随机抽题</button>
   </div>
+  <div class="course-panel">
+    <div class="course-head"><strong>📖 学习章节</strong><button class="link-btn" onclick="toggleCourse()">展开/收起</button></div>
+    <div id="courseList" class="course-list"></div>
+  </div>
+  <div class="practice-head"><h3>真题试卷</h3><span id="paperCount"></span></div>
   <input id="searchInput" class="search" placeholder="搜索年份 / 省份，如 2024 四川" oninput="renderYearList()">
   <div id="yearList"></div>
 </section>
 
-<!-- 刷题页 -->
+<section id="learning" class="page">
+  <button class="back-btn" onclick="go('home')">← 返回首页</button>
+  <h2 id="learningTitle"></h2>
+  <div id="learningList"></div>
+</section>
+
 <section id="quiz" class="page">
-  <div class="quiz-top">
-    <button class="back-btn" onclick="go('picker')">← 返回</button>
-    <span id="quizMeta"></span>
-  </div>
+  <div class="quiz-top"><button class="back-btn" onclick="go('picker')">← 返回</button><span id="quizMeta"></span></div>
   <div class="progress-bar"><div id="progressFill"></div></div>
   <div id="questionBox"></div>
   <div class="quiz-actions">
     <button id="prevBtn" onclick="nav(-1)">上一题</button>
+    <button id="favoriteBtn" onclick="toggleFavorite()">☆ 收藏</button>
     <button id="analysisBtn" onclick="toggleAnalysis()">查看解析</button>
     <button id="nextBtn" onclick="nav(1)">下一题</button>
   </div>
   <div id="analysisBox" class="analysis hidden"></div>
 </section>
 
-<!-- 结果页 -->
 <section id="result" class="page">
-  <h2>本次成绩</h2>
-  <div id="resultBox"></div>
+  <h2>本次成绩</h2><div id="resultBox"></div>
   <button class="primary" onclick="go('home')">回到首页</button>
   <button class="primary ghost" onclick="go('picker')">再刷一组</button>
 </section>
@@ -68,6 +78,8 @@
 <script src="data.js"></script>
 <script src="data-extra.js"></script>
 <script src="bank.js"></script>
+<script src="course.js"></script>
+<script src="practice.js"></script>
 <script src="lock.js"></script>
 <script src="app.js"></script>
 </body>
