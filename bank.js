@@ -15,13 +15,27 @@ const DATA_DIRS = {
   "shiyebian/zongying": "data/shiyebian-zongying"
 };
 
-const idxCache = {}, yearCache = {};
+const idxCache = {}, yearCache = {}, practiceCache = {};
+
+async function loadPractice(cat, subj) {
+  const key = `${cat}-${subj}`;
+  if (practiceCache[key]) return practiceCache[key];
+  try {
+    const r = await fetch(`data/practice/${key}.json`);
+    practiceCache[key] = r.ok ? await r.json() : [];
+  } catch (e) { practiceCache[key] = []; }
+  return practiceCache[key];
+}
 
 async function loadIndex(cat, subj) {
   const key = cat + "/" + subj;
   if (idxCache[key]) return idxCache[key];
   // 事业编公基来自 data.js 种子数据
   if (cat === "shiyebian" && subj === "gongji") {
+    const dir = DATA_DIRS[key];
+    if (dir) {
+      try { const r = await fetch(dir + "/index.json"); if (r.ok) { idxCache[key] = { index: await r.json() }; return idxCache[key]; } } catch (e) {}
+    }
     const list = [];
     const seed = (typeof BANK !== "undefined" && BANK.shiyebian) ? BANK.shiyebian.years : {};
     Object.keys(seed).sort().reverse().forEach(y =>
@@ -52,8 +66,18 @@ async function loadIndex(cat, subj) {
 async function loadYearPapers(cat, subj, year) {
   const key = cat + "/" + subj;
   if (cat === "shiyebian" && subj === "gongji") {
+    const dir = DATA_DIRS[key];
+    if (dir) {
+      const ck = key + "#" + year;
+      if (yearCache[ck]) return yearCache[ck];
+      try { const r = await fetch(dir + "/y" + year + ".json"); if (r.ok) { yearCache[ck] = await r.json(); return yearCache[ck]; } } catch (e) {}
+    }
     const seed = BANK.shiyebian.years[year];
     const out = {};
+    if (dir) {
+      const ck = key + "#" + year;
+      try { const r = await fetch(dir + "/y" + year + ".json"); if (r.ok) { yearCache[ck] = await r.json(); return yearCache[ck]; } } catch (e) {}
+    }
     if (seed) Object.keys(seed).forEach(s => { if (s === "gongji") out[year] = seed[s]; });
     return out;
   }
