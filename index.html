@@ -23,6 +23,7 @@
 
 <section id="home" class="page active">
   <div class="stats-bar" id="globalStats"></div>
+  <div id="continueLearning" class="continue-learning hidden"></div>
   <div class="home-actions">
     <button class="home-action" onclick="openLearning('mistakes')">📕 错题本 <span id="mistakeCount">0</span></button>
     <button class="home-action" onclick="openLearning('favorites')">⭐ 收藏题 <span id="favoriteCount">0</span></button>
@@ -42,12 +43,22 @@
     <button class="random-btn" id="randomBtn" onclick="startRandom()">🎲 随机抽题</button>
   </div>
   <div class="course-panel">
-    <div class="course-head"><strong>📖 学习章节</strong><button class="link-btn" onclick="toggleCourse()">展开/收起</button></div>
+    <div class="course-head"><strong>🎓 课程中心</strong><span id="courseProgressText"></span></div>
+    <div id="lessonTabs" class="lesson-tabs"></div>
+    <div id="lessonList" class="lesson-list"></div>
+  </div>
+  <div class="course-panel practice-panel">
+    <div class="course-head"><strong>📝 专项练习</strong><button class="link-btn" onclick="toggleCourse()">展开/收起</button></div>
     <div id="courseList" class="course-list"></div>
   </div>
   <div class="practice-head"><h3>真题试卷</h3><span id="paperCount"></span></div>
   <input id="searchInput" class="search" placeholder="搜索年份 / 省份，如 2024 四川" oninput="renderYearList()">
   <div id="yearList"></div>
+</section>
+
+<section id="lesson" class="page">
+  <button class="back-btn" onclick="returnToCourses()">← 返回课程中心</button>
+  <div id="lessonDetail"></div>
 </section>
 
 <section id="learning" class="page">
@@ -79,6 +90,7 @@
 <script src="data-extra.js"></script>
 <script src="bank.js"></script>
 <script src="course.js"></script>
+<script src="lesson.js"></script>
 <script src="practice.js"></script>
 <script src="lock.js"></script>
 <script src="app.js"></script>
