@@ -1,66 +1,419 @@
-/* 课程体系与学习中心配置：参考成熟刷题产品的“课程-章节-练习-真题-模考”结构，内容为自有课程框架。 */
+/* 课程体系与学习中心配置：练习章节保留旧数组结构，兼容现有 app.js。 */
 const COURSE_CATALOG = {
   guokao: {
     title: "国考系统班",
     intro: "围绕国考行测五大模块与申论五类题型，按知识点循序学习。",
     subjects: {
-      xingce: [
-        ["常识判断", "政治理论、法律、经济、科技、人文、地理"],
-        ["言语理解", "主旨概括、意图判断、逻辑填空、语句表达"],
-        ["数量关系", "基础应用题、工程问题、行程问题、排列组合"],
-        ["判断推理", "图形推理、定义判断、类比推理、逻辑判断"],
-        ["资料分析", "增长率、增长量、比重、平均数、综合分析"]
-      ],
-      shenlun: [
-        ["归纳概括", "审题、找点、加工、分类与规范表达"],
-        ["综合分析", "解释型、评价型、比较型分析方法"],
-        ["提出对策", "问题识别、原因分析、措施论证"],
-        ["贯彻执行", "讲话稿、倡议书、汇报提纲、短评"],
-        ["申发论述", "立意、分论点、论据、结构与语言"]
-      ]
+      xingce: [["常识判断", "政治理论、法律、经济、科技、人文、地理"], ["言语理解", "主旨概括、意图判断、逻辑填空、语句表达"], ["数量关系", "基础应用题、工程问题、行程问题、排列组合"], ["判断推理", "图形推理、定义判断、类比推理、逻辑判断"], ["资料分析", "增长率、增长量、比重、平均数、综合分析"]],
+      shenlun: [["归纳概括", "审题、找点、加工、分类与规范表达"], ["综合分析", "解释型、评价型、比较型分析方法"], ["提出对策", "问题识别、原因分析、措施论证"], ["贯彻执行", "讲话稿、倡议书、汇报提纲、短评"], ["申发论述", "立意、分论点、论据、结构与语言"]]
     }
   },
   shengkao: {
     title: "省考联考系统班",
     intro: "覆盖联考及各省常见题型，支持按省份、年份和模块专项训练。",
     subjects: {
-      xingce: [
-        ["常识判断", "时政、法律、经济、科技、历史文化"],
-        ["言语理解", "片段阅读、逻辑填空、语句排序"],
-        ["数量关系", "数字推理、数学运算、比例与概率"],
-        ["判断推理", "四大判断模块与快速解题方法"],
-        ["资料分析", "材料阅读、速算技巧、综合判断"]
-      ],
-      shenlun: [
-        ["归纳概括", "概括问题、影响、原因与做法"],
-        ["综合分析", "观点理解、词句解释、关系分析"],
-        ["提出对策", "基层治理与公共服务类对策"],
-        ["贯彻执行", "事务文书与应用文写作"],
-        ["申发论述", "省考作文审题与论证"]
-      ]
+      xingce: [["常识判断", "时政、法律、经济、科技、历史文化"], ["言语理解", "片段阅读、逻辑填空、语句排序"], ["数量关系", "数字推理、数学运算、比例与概率"], ["判断推理", "四大判断模块与快速解题方法"], ["资料分析", "材料阅读、速算技巧、综合判断"]],
+      shenlun: [["归纳概括", "概括问题、影响、原因与做法"], ["综合分析", "观点理解、词句解释、关系分析"], ["提出对策", "基层治理与公共服务类对策"], ["贯彻执行", "事务文书与应用文写作"], ["申发论述", "省考作文审题与论证"]]
     }
   },
   shiyebian: {
     title: "事业编综合能力班",
     intro: "公基知识体系与综应实务能力结合，适合事业单位统考备考。",
     subjects: {
-      gongji: [
-        ["政治理论", "马克思主义、中国特色社会主义、时政"],
-        ["法律基础", "宪法、民法典、行政法、刑法与劳动法"],
-        ["经济管理", "宏观经济、市场经济、公共管理"],
-        ["公文写作", "公文种类、格式、行文规则与处理"],
-        ["科技人文", "科技常识、历史、文学、地理与国情"]
-      ],
-      zongying: [
-        ["案例分析", "事实梳理、问题诊断、原因与对策"],
-        ["实务处理", "沟通协调、应急处置、群众工作"],
-        ["公文写作", "通知、通报、汇报、建议与讲话"],
-        ["材料作文", "立意、结构、论证与规范表达"]
-      ]
+      gongji: [["政治理论", "马克思主义、中国特色社会主义、时政"], ["法律基础", "宪法、民法典、行政法、刑法与劳动法"], ["经济管理", "宏观经济、市场经济、公共管理"], ["公文写作", "公文种类、格式、行文规则与处理"], ["科技人文", "科技常识、历史、文学、地理与国情"]],
+      zongying: [["案例分析", "事实梳理、问题诊断、原因与对策"], ["实务处理", "沟通协调、应急处置、群众工作"], ["公文写作", "通知、通报、汇报、建议与讲话"], ["材料作文", "立意、结构、论证与规范表达"]]
     }
   }
 };
 
+const LESSON_CATALOG = [
+  {
+    "id": "guokao-xingce-text-01",
+    "cat": "guokao",
+    "subj": "xingce",
+    "module": "guokao-xingce",
+    "title": "资料分析读数与列式",
+    "summary": "把长材料转成可计算关系，稳定拿下增长与比重题。",
+    "type": "text",
+    "duration": 28,
+    "difficulty": "入门",
+    "practiceModule": "资料分析",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/guokao-xingce-text-01.json"
+  },
+  {
+    "id": "guokao-xingce-text-02",
+    "cat": "guokao",
+    "subj": "xingce",
+    "module": "guokao-xingce",
+    "title": "言语主旨的结构定位",
+    "summary": "通过转折、因果和对策句抓住片段中心，减少凭语感作答。",
+    "type": "text",
+    "duration": 26,
+    "difficulty": "进阶",
+    "practiceModule": "言语理解",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/guokao-xingce-text-02.json"
+  },
+  {
+    "id": "guokao-xingce-text-03",
+    "cat": "guokao",
+    "subj": "xingce",
+    "module": "guokao-xingce",
+    "title": "逻辑判断的条件推演",
+    "summary": "把自然语言转为规则，用确定性推理解决真假与推出题。",
+    "type": "text",
+    "duration": 32,
+    "difficulty": "进阶",
+    "practiceModule": "逻辑判断",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/guokao-xingce-text-03.json"
+  },
+  {
+    "id": "guokao-xingce-video-01",
+    "cat": "guokao",
+    "subj": "xingce",
+    "module": "guokao-xingce",
+    "title": "国考行测全局备考概览",
+    "summary": "建立模块取舍、答题顺序与限时复盘的完整框架。",
+    "type": "video",
+    "duration": 18,
+    "difficulty": "入门",
+    "practiceModule": "判断推理",
+    "rights": "owned",
+    "source": "原创课程",
+    "path": "media/videos/guokao-xingce-video-01.mp4",
+    "poster": "media/posters/guokao-xingce-video-01.svg",
+    "captions": "media/captions/guokao-xingce-video-01.vtt",
+    "transcript": "欢迎学习《国考行测全局备考概览》。本节先建立国考行测的整体学习地图。备考不是把资料从头看到尾，而是先识别考试任务，再把知识学习、限时训练和复盘安排成闭环。\n\n第一阶段用于诊断。选择一套完整试题，在规定时间内作答，记录每类任务的正确率、平均耗时和放弃数量。不要只看总分，要区分不会、会但慢、审题失误和临场取舍不当。诊断结果决定后续时间投向。\n\n第二阶段用于专项学习。每学一个方法，当天完成少量针对练习，口头说明为什么这样作答；次日重做错题，确认自己能脱离答案复现步骤。与“判断推理”相关的练习要优先建立稳定流程，再逐渐压缩时间。\n\n第三阶段进入套题。按照真实时长练习，预先确定模块顺序和止损点。遇到暂时无法推进的题先做标记，不让一道题破坏全卷节奏。结束后同时复盘知识漏洞与时间分配，不以刷题数量代替质量。\n\n最后形成每周计划：学习日完成课程和专项题，整卷日模拟考场，复盘日整理高频错误并回炉。连续两周观察正确率与耗时，只有数据稳定改善才说明方法有效。接下来可按目录进入三节文字课，把总策略落实到具体任务。"
+  },
+  {
+    "id": "guokao-shenlun-text-01",
+    "cat": "guokao",
+    "subj": "shenlun",
+    "module": "guokao-shenlun",
+    "title": "归纳概括的要点加工",
+    "summary": "从材料原词中找准得分点，并用并列结构完成分类表达。",
+    "type": "text",
+    "duration": 30,
+    "difficulty": "入门",
+    "practiceModule": "归纳概括",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/guokao-shenlun-text-01.json"
+  },
+  {
+    "id": "guokao-shenlun-text-02",
+    "cat": "guokao",
+    "subj": "shenlun",
+    "module": "guokao-shenlun",
+    "title": "综合分析的解释链条",
+    "summary": "用含义、表现、原因、影响和结论解释材料中的观点或词句。",
+    "type": "text",
+    "duration": 34,
+    "difficulty": "进阶",
+    "practiceModule": "综合分析",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/guokao-shenlun-text-02.json"
+  },
+  {
+    "id": "guokao-shenlun-text-03",
+    "cat": "guokao",
+    "subj": "shenlun",
+    "module": "guokao-shenlun",
+    "title": "申发论述的论证搭建",
+    "summary": "以材料主题为边界，形成可展开、可论证的文章结构。",
+    "type": "text",
+    "duration": 42,
+    "difficulty": "提高",
+    "practiceModule": "申发论述",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/guokao-shenlun-text-03.json"
+  },
+  {
+    "id": "guokao-shenlun-video-01",
+    "cat": "guokao",
+    "subj": "shenlun",
+    "module": "guokao-shenlun",
+    "title": "国考申论作答流程概览",
+    "summary": "从审题、读材料到组织答案，理解国考申论的评分逻辑。",
+    "type": "video",
+    "duration": 20,
+    "difficulty": "入门",
+    "practiceModule": "归纳概括",
+    "rights": "owned",
+    "source": "原创课程",
+    "path": "media/videos/guokao-shenlun-video-01.mp4",
+    "poster": "media/posters/guokao-shenlun-video-01.svg",
+    "captions": "media/captions/guokao-shenlun-video-01.vtt",
+    "transcript": "欢迎学习《国考申论作答流程概览》。本节先建立国考申论的整体学习地图。备考不是把资料从头看到尾，而是先识别考试任务，再把知识学习、限时训练和复盘安排成闭环。\n\n第一阶段用于诊断。选择一套完整试题，在规定时间内作答，记录每类任务的正确率、平均耗时和放弃数量。不要只看总分，要区分不会、会但慢、审题失误和临场取舍不当。诊断结果决定后续时间投向。\n\n第二阶段用于专项学习。每学一个方法，当天完成少量针对练习，口头说明为什么这样作答；次日重做错题，确认自己能脱离答案复现步骤。与“归纳概括”相关的练习要优先建立稳定流程，再逐渐压缩时间。\n\n第三阶段进入套题。按照真实时长练习，预先确定模块顺序和止损点。遇到暂时无法推进的题先做标记，不让一道题破坏全卷节奏。结束后同时复盘知识漏洞与时间分配，不以刷题数量代替质量。\n\n最后形成每周计划：学习日完成课程和专项题，整卷日模拟考场，复盘日整理高频错误并回炉。连续两周观察正确率与耗时，只有数据稳定改善才说明方法有效。接下来可按目录进入三节文字课，把总策略落实到具体任务。"
+  },
+  {
+    "id": "shengkao-xingce-text-01",
+    "cat": "shengkao",
+    "subj": "xingce",
+    "module": "shengkao-xingce",
+    "title": "数量关系的比例建模",
+    "summary": "用份数思想处理比例、工程与浓度问题，减少方程运算。",
+    "type": "text",
+    "duration": 30,
+    "difficulty": "入门",
+    "practiceModule": "数量关系",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shengkao-xingce-text-01.json"
+  },
+  {
+    "id": "shengkao-xingce-text-02",
+    "cat": "shengkao",
+    "subj": "xingce",
+    "module": "shengkao-xingce",
+    "title": "图形推理的规律次序",
+    "summary": "按元素、位置、数量和空间的顺序观察，避免无方向试错。",
+    "type": "text",
+    "duration": 27,
+    "difficulty": "进阶",
+    "practiceModule": "判断推理",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shengkao-xingce-text-02.json"
+  },
+  {
+    "id": "shengkao-xingce-text-03",
+    "cat": "shengkao",
+    "subj": "xingce",
+    "module": "shengkao-xingce",
+    "title": "资料分析的比较与估算",
+    "summary": "利用量级、分数和误差边界，快速完成省考资料比较题。",
+    "type": "text",
+    "duration": 29,
+    "difficulty": "进阶",
+    "practiceModule": "资料分析",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shengkao-xingce-text-03.json"
+  },
+  {
+    "id": "shengkao-xingce-video-01",
+    "cat": "shengkao",
+    "subj": "xingce",
+    "module": "shengkao-xingce",
+    "title": "省考行测模块策略概览",
+    "summary": "结合联考节奏规划模块顺序、时间分配和阶段训练。",
+    "type": "video",
+    "duration": 17,
+    "difficulty": "入门",
+    "practiceModule": "数量关系",
+    "rights": "owned",
+    "source": "原创课程",
+    "path": "media/videos/shengkao-xingce-video-01.mp4",
+    "poster": "media/posters/shengkao-xingce-video-01.svg",
+    "captions": "media/captions/shengkao-xingce-video-01.vtt",
+    "transcript": "欢迎学习《省考行测模块策略概览》。本节先建立省考行测的整体学习地图。备考不是把资料从头看到尾，而是先识别考试任务，再把知识学习、限时训练和复盘安排成闭环。\n\n第一阶段用于诊断。选择一套完整试题，在规定时间内作答，记录每类任务的正确率、平均耗时和放弃数量。不要只看总分，要区分不会、会但慢、审题失误和临场取舍不当。诊断结果决定后续时间投向。\n\n第二阶段用于专项学习。每学一个方法，当天完成少量针对练习，口头说明为什么这样作答；次日重做错题，确认自己能脱离答案复现步骤。与“数量关系”相关的练习要优先建立稳定流程，再逐渐压缩时间。\n\n第三阶段进入套题。按照真实时长练习，预先确定模块顺序和止损点。遇到暂时无法推进的题先做标记，不让一道题破坏全卷节奏。结束后同时复盘知识漏洞与时间分配，不以刷题数量代替质量。\n\n最后形成每周计划：学习日完成课程和专项题，整卷日模拟考场，复盘日整理高频错误并回炉。连续两周观察正确率与耗时，只有数据稳定改善才说明方法有效。接下来可按目录进入三节文字课，把总策略落实到具体任务。"
+  },
+  {
+    "id": "shengkao-shenlun-text-01",
+    "cat": "shengkao",
+    "subj": "shenlun",
+    "module": "shengkao-shenlun",
+    "title": "基层问题的对策生成",
+    "summary": "从材料问题和成功经验反推可执行、可评价的治理措施。",
+    "type": "text",
+    "duration": 32,
+    "difficulty": "入门",
+    "practiceModule": "提出对策",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shengkao-shenlun-text-01.json"
+  },
+  {
+    "id": "shengkao-shenlun-text-02",
+    "cat": "shengkao",
+    "subj": "shenlun",
+    "module": "shengkao-shenlun",
+    "title": "贯彻执行的文种适配",
+    "summary": "依据发文目的和使用场景，确定格式、语气与内容结构。",
+    "type": "text",
+    "duration": 36,
+    "difficulty": "进阶",
+    "practiceModule": "贯彻执行",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shengkao-shenlun-text-02.json"
+  },
+  {
+    "id": "shengkao-shenlun-text-03",
+    "cat": "shengkao",
+    "subj": "shenlun",
+    "module": "shengkao-shenlun",
+    "title": "省考作文的材料串联",
+    "summary": "从多则基层案例中提炼共同主题，构建贴近治理实践的文章。",
+    "type": "text",
+    "duration": 40,
+    "difficulty": "提高",
+    "practiceModule": "申发论述",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shengkao-shenlun-text-03.json"
+  },
+  {
+    "id": "shengkao-shenlun-video-01",
+    "cat": "shengkao",
+    "subj": "shenlun",
+    "module": "shengkao-shenlun",
+    "title": "省考申论题型与材料概览",
+    "summary": "把握省考基层材料特点与小题、作文的整体作答节奏。",
+    "type": "video",
+    "duration": 19,
+    "difficulty": "入门",
+    "practiceModule": "贯彻执行",
+    "rights": "owned",
+    "source": "原创课程",
+    "path": "media/videos/shengkao-shenlun-video-01.mp4",
+    "poster": "media/posters/shengkao-shenlun-video-01.svg",
+    "captions": "media/captions/shengkao-shenlun-video-01.vtt",
+    "transcript": "欢迎学习《省考申论题型与材料概览》。本节先建立省考申论的整体学习地图。备考不是把资料从头看到尾，而是先识别考试任务，再把知识学习、限时训练和复盘安排成闭环。\n\n第一阶段用于诊断。选择一套完整试题，在规定时间内作答，记录每类任务的正确率、平均耗时和放弃数量。不要只看总分，要区分不会、会但慢、审题失误和临场取舍不当。诊断结果决定后续时间投向。\n\n第二阶段用于专项学习。每学一个方法，当天完成少量针对练习，口头说明为什么这样作答；次日重做错题，确认自己能脱离答案复现步骤。与“贯彻执行”相关的练习要优先建立稳定流程，再逐渐压缩时间。\n\n第三阶段进入套题。按照真实时长练习，预先确定模块顺序和止损点。遇到暂时无法推进的题先做标记，不让一道题破坏全卷节奏。结束后同时复盘知识漏洞与时间分配，不以刷题数量代替质量。\n\n最后形成每周计划：学习日完成课程和专项题，整卷日模拟考场，复盘日整理高频错误并回炉。连续两周观察正确率与耗时，只有数据稳定改善才说明方法有效。接下来可按目录进入三节文字课，把总策略落实到具体任务。"
+  },
+  {
+    "id": "shiyebian-gongji-text-01",
+    "cat": "shiyebian",
+    "subj": "gongji",
+    "module": "shiyebian-gongji",
+    "title": "民法情境的权利分析",
+    "summary": "按主体、行为、效力和责任拆解民法典常见案例。",
+    "type": "text",
+    "duration": 35,
+    "difficulty": "入门",
+    "practiceModule": "法律基础",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shiyebian-gongji-text-01.json"
+  },
+  {
+    "id": "shiyebian-gongji-text-02",
+    "cat": "shiyebian",
+    "subj": "gongji",
+    "module": "shiyebian-gongji",
+    "title": "宏观经济指标判断",
+    "summary": "理解增长、物价、就业与政策工具之间的基本传导。",
+    "type": "text",
+    "duration": 31,
+    "difficulty": "进阶",
+    "practiceModule": "经济管理",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shiyebian-gongji-text-02.json"
+  },
+  {
+    "id": "shiyebian-gongji-text-03",
+    "cat": "shiyebian",
+    "subj": "gongji",
+    "module": "shiyebian-gongji",
+    "title": "党政公文的格式规则",
+    "summary": "从文种、行文关系和版式要素解决公文判断与改错题。",
+    "type": "text",
+    "duration": 33,
+    "difficulty": "进阶",
+    "practiceModule": "公文写作",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shiyebian-gongji-text-03.json"
+  },
+  {
+    "id": "shiyebian-gongji-video-01",
+    "cat": "shiyebian",
+    "subj": "gongji",
+    "module": "shiyebian-gongji",
+    "title": "事业编公基知识体系概览",
+    "summary": "搭建政治、法律、经济、公文与人文科技的复习地图。",
+    "type": "video",
+    "duration": 21,
+    "difficulty": "入门",
+    "practiceModule": "法律基础",
+    "rights": "owned",
+    "source": "原创课程",
+    "path": "media/videos/shiyebian-gongji-video-01.mp4",
+    "poster": "media/posters/shiyebian-gongji-video-01.svg",
+    "captions": "media/captions/shiyebian-gongji-video-01.vtt",
+    "transcript": "欢迎学习《事业编公基知识体系概览》。本节先建立事业编公基的整体学习地图。备考不是把资料从头看到尾，而是先识别考试任务，再把知识学习、限时训练和复盘安排成闭环。\n\n第一阶段用于诊断。选择一套完整试题，在规定时间内作答，记录每类任务的正确率、平均耗时和放弃数量。不要只看总分，要区分不会、会但慢、审题失误和临场取舍不当。诊断结果决定后续时间投向。\n\n第二阶段用于专项学习。每学一个方法，当天完成少量针对练习，口头说明为什么这样作答；次日重做错题，确认自己能脱离答案复现步骤。与“法律基础”相关的练习要优先建立稳定流程，再逐渐压缩时间。\n\n第三阶段进入套题。按照真实时长练习，预先确定模块顺序和止损点。遇到暂时无法推进的题先做标记，不让一道题破坏全卷节奏。结束后同时复盘知识漏洞与时间分配，不以刷题数量代替质量。\n\n最后形成每周计划：学习日完成课程和专项题，整卷日模拟考场，复盘日整理高频错误并回炉。连续两周观察正确率与耗时，只有数据稳定改善才说明方法有效。接下来可按目录进入三节文字课，把总策略落实到具体任务。"
+  },
+  {
+    "id": "shiyebian-zongying-text-01",
+    "cat": "shiyebian",
+    "subj": "zongying",
+    "module": "shiyebian-zongying",
+    "title": "案例分析的问题诊断",
+    "summary": "从事实中识别管理问题，形成现象、原因与影响的诊断链。",
+    "type": "text",
+    "duration": 34,
+    "difficulty": "入门",
+    "practiceModule": "案例分析",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shiyebian-zongying-text-01.json"
+  },
+  {
+    "id": "shiyebian-zongying-text-02",
+    "cat": "shiyebian",
+    "subj": "zongying",
+    "module": "shiyebian-zongying",
+    "title": "应急处置的行动排序",
+    "summary": "在突发场景中兼顾控制风险、沟通群众和恢复秩序。",
+    "type": "text",
+    "duration": 38,
+    "difficulty": "进阶",
+    "practiceModule": "实务处理",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shiyebian-zongying-text-02.json"
+  },
+  {
+    "id": "shiyebian-zongying-text-03",
+    "cat": "shiyebian",
+    "subj": "zongying",
+    "module": "shiyebian-zongying",
+    "title": "事务文书的信息重组",
+    "summary": "把散乱材料改写为清晰、可执行的通知与工作建议。",
+    "type": "text",
+    "duration": 36,
+    "difficulty": "进阶",
+    "practiceModule": "公文写作",
+    "rights": "owned",
+    "source": "原创课程",
+    "content": "content/lessons/shiyebian-zongying-text-03.json"
+  },
+  {
+    "id": "shiyebian-zongying-video-01",
+    "cat": "shiyebian",
+    "subj": "zongying",
+    "module": "shiyebian-zongying",
+    "title": "事业编综应实务能力概览",
+    "summary": "认识案例分析、应急处置、公文写作与材料作文的能力链。",
+    "type": "video",
+    "duration": 20,
+    "difficulty": "入门",
+    "practiceModule": "案例分析",
+    "rights": "owned",
+    "source": "原创课程",
+    "path": "media/videos/shiyebian-zongying-video-01.mp4",
+    "poster": "media/posters/shiyebian-zongying-video-01.svg",
+    "captions": "media/captions/shiyebian-zongying-video-01.vtt",
+    "transcript": "欢迎学习《事业编综应实务能力概览》。本节先建立事业编综应的整体学习地图。备考不是把资料从头看到尾，而是先识别考试任务，再把知识学习、限时训练和复盘安排成闭环。\n\n第一阶段用于诊断。选择一套完整试题，在规定时间内作答，记录每类任务的正确率、平均耗时和放弃数量。不要只看总分，要区分不会、会但慢、审题失误和临场取舍不当。诊断结果决定后续时间投向。\n\n第二阶段用于专项学习。每学一个方法，当天完成少量针对练习，口头说明为什么这样作答；次日重做错题，确认自己能脱离答案复现步骤。与“案例分析”相关的练习要优先建立稳定流程，再逐渐压缩时间。\n\n第三阶段进入套题。按照真实时长练习，预先确定模块顺序和止损点。遇到暂时无法推进的题先做标记，不让一道题破坏全卷节奏。结束后同时复盘知识漏洞与时间分配，不以刷题数量代替质量。\n\n最后形成每周计划：学习日完成课程和专项题，整卷日模拟考场，复盘日整理高频错误并回炉。连续两周观察正确率与耗时，只有数据稳定改善才说明方法有效。接下来可按目录进入三节文字课，把总策略落实到具体任务。"
+  }
+];
+
 function courseFor(cat, subj) {
   return (COURSE_CATALOG[cat] && COURSE_CATALOG[cat].subjects[subj]) || [];
 }
+
+function lessonsFor(cat, subj) {
+  return LESSON_CATALOG.filter(function (lesson) {
+    return lesson.cat === cat && lesson.subj === subj;
+  });
+}
+
