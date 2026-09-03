@@ -17,16 +17,6 @@ const DATA_DIRS = {
 
 const idxCache = {}, yearCache = {}, practiceCache = {};
 
-async function loadPractice(cat, subj) {
-  const key = `${cat}-${subj}`;
-  if (practiceCache[key]) return practiceCache[key];
-  try {
-    const r = await fetch(`data/practice/${key}.json`);
-    practiceCache[key] = r.ok ? await r.json() : [];
-  } catch (e) { practiceCache[key] = []; }
-  return practiceCache[key];
-}
-
 async function loadIndex(cat, subj) {
   const key = cat + "/" + subj;
   if (idxCache[key]) return idxCache[key];
