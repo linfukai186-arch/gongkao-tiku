@@ -52,9 +52,10 @@ function renderLessonCenter() {
   list.innerHTML = lessons.map((lesson, index) => {
     const done = progress.lessons[lesson.id]?.completed;
     const icon = lesson.type === 'video' ? '▶' : '📄';
+    const sourceTag = lesson.external ? '<em class="ext">公开课</em>' : '<em>原创</em>';
     return `<button class="lesson-card" onclick="openLesson('${escAttr(lesson.id)}')">
       <span class="lesson-cover ${lesson.type}">${icon}</span>
-      <span class="lesson-info"><span class="lesson-badges"><em>${lesson.type === 'video' ? '视频' : '文字'}</em><em>${esc(lessonDuration(lesson.duration))}</em><em>${esc(lesson.difficulty)}</em></span><b>${esc(lesson.title)}</b><small>${esc(lesson.summary)}</small></span>
+      <span class="lesson-info"><span class="lesson-badges">${sourceTag}${lesson.external ? '' : `<em>${lesson.type === 'video' ? '视频' : '文字'}</em>`}<em>${esc(lessonDuration(lesson.duration))}</em><em>${esc(lesson.difficulty)}</em></span><b>${esc(lesson.title)}</b><small>${esc(lesson.summary)}</small></span>
       <span class="lesson-status${done ? ' done' : ''}">${done ? '✓ 已学' : `${index + 1}`}</span>
     </button>`;
   }).join('') || '<p class="loading">暂无此类课程</p>';
@@ -87,10 +88,21 @@ async function openLesson(id) {
 function renderLessonHeader(lesson) {
   const progress = lessonProgress();
   const done = progress.lessons[lesson.id]?.completed;
-  return `<div class="lesson-hero"><span class="lesson-kind">${lesson.type === 'video' ? '▶ 原创视频微课' : '📄 原创文字课程'}</span><h2>${esc(lesson.title)}</h2><p>${esc(lesson.summary)}</p><div class="lesson-meta"><span>⏱ ${esc(lessonDuration(lesson.duration))}</span><span>📊 ${esc(lesson.difficulty)}</span><span>📚 ${esc(lesson.module)}</span></div><button class="complete-btn${done ? ' done' : ''}" onclick="toggleLessonComplete('${escAttr(lesson.id)}')">${done ? '✓ 已完成' : '标记为已完成'}</button></div>`;
+  const kind = lesson.external ? `▶ 免费公开课 · ${lesson.platform === 'bilibili' ? '哔哩哔哩' : lesson.platform || '外部平台'}` : lesson.type === 'video' ? '▶ 原创视频微课' : '📄 原创文字课程';
+  const catName = (typeof CATS !== 'undefined' && CATS.find(c => c.id === lesson.cat)?.name) || lesson.cat;
+  const subjName = (typeof CATS !== 'undefined' && CATS.find(c => c.id === lesson.cat)?.subjects[lesson.subj]) || lesson.subj;
+  return `<div class="lesson-hero"><span class="lesson-kind">${kind}</span><h2>${esc(lesson.title)}</h2><p>${esc(lesson.summary)}</p><div class="lesson-meta"><span>⏱ ${esc(lessonDuration(lesson.duration))}</span><span>📊 ${esc(lesson.difficulty)}</span><span>📚 ${esc(catName)}·${esc(subjName)}</span>${lesson.provider ? `<span>👤 ${esc(lesson.provider)}</span>` : ''}</div><button class="complete-btn${done ? ' done' : ''}" onclick="toggleLessonComplete('${escAttr(lesson.id)}')">${done ? '✓ 已完成' : '标记为已完成'}</button></div>`;
 }
 
 function renderVideoLesson(lesson) {
+  if (lesson.external) {
+    const transcript = transcriptLines(lesson.transcript || '').map((text, i) => `<li><span>${i + 1}</span>${esc(text)}</li>`).join('');
+    document.getElementById('lessonDetail').innerHTML = `${renderLessonHeader(lesson)}
+    <div class="video-shell"><iframe src="${escAttr(lesson.embedUrl)}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" title="${escAttr(lesson.title)}"></iframe></div>
+    <div class="attr-box"><b>课程来源</b><p>${esc(lesson.attribution || '')}</p><p class="attr-links"><a href="${escAttr(lesson.url)}" target="_blank" rel="noopener noreferrer">在哔哩哔哩打开完整课程 →</a></p></div>
+    ${transcript ? `<article class="lesson-article"><h3>本课讲义</h3><ol class="transcript-list">${transcript}</ol></article>` : ''}${lessonActions(lesson)}`;
+    return;
+  }
   const transcript = transcriptLines(lesson.transcript).map((text, i) => `<li><span>${i + 1}</span>${esc(text)}</li>`).join('');
   document.getElementById('lessonDetail').innerHTML = `${renderLessonHeader(lesson)}
     <div class="video-shell"><video id="lessonVideo" controls preload="metadata" poster="${escAttr(lesson.poster)}"><source src="${escAttr(lesson.path)}" type="video/mp4"><track kind="captions" srclang="zh" label="中文字幕" src="${escAttr(lesson.captions)}" default>当前浏览器不支持视频播放。</video></div>
