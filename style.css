@@ -468,6 +468,21 @@ header h1 .icon {
 .video-shell iframe { width: 100%; height: 100%; display: block; border: 0; }
 .lesson-badges em.ext { color: #92400e; background: #fef3c7; }
 
+/* ===== 个人题库（仅本地可见） ===== */
+.personal-bank { margin-bottom: 20px; }
+.personal-bank.hidden { display: none; }
+.personal-head { margin-bottom: 10px; }
+.personal-sub { color: var(--gray-500); font-size: 13px; margin-top: -6px; }
+.personal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.personal-card { display: grid; gap: 6px; padding: 16px; border-radius: var(--radius); background: #fff; border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm); cursor: pointer; transition: all .2s; }
+.personal-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: #fde68a; }
+.personal-card b { color: var(--gray-800); font-size: 14px; }
+.personal-card small { color: var(--gray-500); }
+.personal-card span { color: var(--warning); font-weight: 700; font-size: 13px; }
+@media (max-width: 600px) {
+  .personal-grid { grid-template-columns: 1fr; }
+}
+
 /* ===== 课程面板 ===== */
 .course-panel {
   background: linear-gradient(135deg, #fff 0%, var(--gray-50) 100%);
