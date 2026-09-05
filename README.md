@@ -104,6 +104,19 @@ python -m http.server 8765
 - Vercel/Netlify 身份验证
 - 自建服务器登录系统
 
+## 个人题库（仅本地/私有网络）
+
+`_private/` 目录存放个人解析的题库（如自有 Word 资料），发布脚本会自动跳过该目录，**不会上传到 GitHub**。线上站点检测不到该目录，"个人题库"入口自动隐藏。
+
+使用方式：
+
+1. 双击项目根目录的 `_启动个人题库.bat`（或运行 `node _server.js`）；
+2. 本机访问 `http://localhost:8765/`，首页出现"🔒 个人题库"；
+3. 手机与电脑连同一 Wi-Fi，访问启动时打印的局域网地址；
+4. 想随时随地用手机访问：电脑和手机都安装 [Tailscale](https://tailscale.com/) 并登录同一账号，手机用启动时打印的 Tailscale IP 访问（显示为 ` tailscale0` 网卡地址）。
+
+个人题库数据由 `tools-personal/parse-personal.py` 从本地 Word 资料解析生成，重新解析会覆盖 `_private/data/`。
+
 ## 数据处理工具
 
 `tools` 下包含：
